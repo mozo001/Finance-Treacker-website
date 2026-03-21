@@ -1,14 +1,14 @@
 {
   "build":[
     {
-      "scr":"finance_tracker/wsgi.py",
+      "scr":"finance_project/wsgi.py",
       "use":"@vercel/python"
     }
   ],
   "routes":[
     {
       "scr":"/(.*)",
-      "dest":"financer_tracker/wsgi.py
+      "dest":"finance_project/wsgi.py
     }
   ]
 }
