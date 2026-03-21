@@ -8,7 +8,7 @@
   "routes":[
     {
       "scr":"/(.*)",
-      "dest":"finance_project/wsgi.py
+      "dest":"finance_project/wsgi.py"
     }
   ]
 }
