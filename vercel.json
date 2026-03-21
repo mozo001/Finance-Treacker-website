@@ -7,7 +7,7 @@
   ],
   "routes":[
     {
-      "scr":"/(.*)",
+      "src":"/(.*)",
       "dest":"finance_project/wsgi.py"
     }
   ]
