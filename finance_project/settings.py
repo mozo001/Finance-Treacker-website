@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY_','fallback-key-for-dev')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = osenviron.get('DJANGO_DEBUG','False')=='True'
+DEBUG = os.environ.get('DJANGO_DEBUG','False')=='True'
 
 ALLOWED_HOSTS = ['.vercel.app','now.sh','localhost','127.0.0.1']
 
