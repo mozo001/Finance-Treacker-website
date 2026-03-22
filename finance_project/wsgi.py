@@ -8,11 +8,16 @@ https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
 """
 
 import os
-
+import sys
 from django.core.wsgi import get_wsgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'finance_project.settings')
+try:
+  application = get_wsgi_application()
+  app =application
+except Exception as e:
+  print(f"CRITICAL ERROR:{E}")
+  rais e
 
-application = get_wsgi_application()
 
 
