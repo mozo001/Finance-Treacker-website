@@ -17,7 +17,7 @@ try:
   app =application
 except Exception as e:
   print(f"CRITICAL ERROR:{E}")
-  rais e
+  raise e
 
 
 
