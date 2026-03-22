@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
 
 import os
 import sys
-import
+import pip
+
 from django.core.wsgi import get_wsgi_application
 pip.main(['install','setuptools'])
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'finance_project.settings')
