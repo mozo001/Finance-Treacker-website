@@ -13,7 +13,6 @@ import sys
 
 from django.core.wsgi import get_wsgi_application
 
-  import pkg_resources
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'finance_project.settings')
 try:
   application = get_wsgi_application()
