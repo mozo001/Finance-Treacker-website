@@ -16,7 +16,7 @@ try:
   application = get_wsgi_application()
   app =application
 except Exception as e:
-  print(f"CRITICAL ERROR:{E}")
+  print(f"CRITICAL ERROR:{e}")
   raise e
 
 
