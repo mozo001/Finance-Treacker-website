@@ -13,7 +13,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY_','fallback-key-for-dev')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = osenviron.get('DJANGO_DEBUG','False')=='True'
 
-ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS'),'127.0.0.1']
+ALLOWED_HOSTS = ['.vercel.app','now.sh','localhost','127.0.0.1']
 
 
 # Application definition
