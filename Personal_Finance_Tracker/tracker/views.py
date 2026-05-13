@@ -2,8 +2,35 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.db.models import Sum
 from .models import Transaction
 # Create your views here.
+
 def index(request):
-    return render (request, 'index.html')
+    # 1. Get the filter value from the correctly matched key
+    selected_month = request.GET.get('month_filter')
+    
+    # Start with a base queryset
+    transactions = Transaction.objects.all()
+
+    # 2. Extract year and month if a filter is applied
+    if selected_month:
+        try:
+            year, month = selected_month.split('-')
+            transactions = transactions.filter(date__year=year, date__month=month)
+        except ValueError:
+            pass # Handles edge cases if string formatting fails
+
+    # 3. Calculate sums based on the FILTERED transactions list
+    total_income = transactions.filter(transaction_type='income').aggregate(Sum('amount'))['amount__sum'] or 0
+    total_expense = transactions.filter(transaction_type='expense').aggregate(Sum('amount'))['amount__sum'] or 0
+    balance = total_income - total_expense
+
+    context = {
+        'income': float(total_income), 
+        'expense': float(total_expense),
+        'balance': float(balance),
+        'selected_month': selected_month, # Pass back to retain input value
+    }
+    return render(request, 'index.html', context)
+
 
 
 def transaction(request):
@@ -41,6 +68,7 @@ def add_transaction(request):
         date = request.POST.get('date')
         description = request.POST.get('description')
         category = categorize_transaction(title)
+        title = ''.join(e for e in title if e.isalnum() or e.isspace())
         Transaction.objects.create(
             title=title,
             amount=amount,
@@ -49,6 +77,7 @@ def add_transaction(request):
             date=date,
             description=description,
         )
+        
         return redirect('transaction')
 
     return render(request, 'add_transaction.html')
@@ -62,8 +91,15 @@ def edit_transaction(request, pk):
         category = request.POST.get('category')
         date = request.POST.get('date')
         description = request.POST.get('description')
+
+        transaction.title = title
+        transaction.amount = amount
+        transaction.transaction_type = transaction_type
+        transaction.category = category
+        transaction.date = date
+        transaction.description = description
         transaction.save()
 
         return redirect('transaction')
 
-    return render(request, 'edit_transaction.html',{'transaction': transaction})
+    return render(request, 'edit_transaction.html', {'transaction': transaction})
